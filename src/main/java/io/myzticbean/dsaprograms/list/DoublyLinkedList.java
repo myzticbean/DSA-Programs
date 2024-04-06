@@ -196,4 +196,97 @@ public class DoublyLinkedList {
         }
     }
 
+    public void swapFirstLast() {
+        if(length < 2)
+            return;
+        int temp = head.value;
+        head.value = tail.value;
+        tail.value = temp;
+        // I though swapping the head and tail would work, but I was wrong
+        //        Node temp = head;
+        //        head = tail;
+        //        tail = temp;
+    }
+
+    public void reverse() {
+        if(length < 2)
+            return;
+        // start from the tail
+        Node temp = tail;
+        head = tail;
+        while(temp != null) {
+            // swap the next and prev pointers
+            Node tempPointer = temp.next;
+            temp.next = temp.prev;
+            temp.prev = tempPointer;
+            // move the temp pointer left
+            temp = temp.next;
+            // if temp is not null, move the tail pointer as well
+            if(temp != null)
+                tail = temp;
+        }
+    }
+
+    public boolean isPalindrome() {
+        StringBuilder fwd = new StringBuilder("");
+        StringBuilder bwd = new StringBuilder("");
+        for(Node temp = head; temp != null; temp = temp.next) {
+            fwd.append(temp.value);
+        }
+        for(Node temp = tail; temp != null; temp = temp.prev) {
+            bwd.append(temp.value);
+        }
+        System.out.println("Forward: " + fwd.toString());
+        System.out.println("Backward: " + bwd.toString());
+        if(fwd.toString().equals(bwd.toString()))
+            return true;
+        return false;
+    }
+
+    public void swapPairs() {
+        if(head == null || head.next == null)
+            return;
+
+        Node prevTemp = head.prev;
+        Node nextTemp = head.next.next;
+        Node temp1 = head;
+        Node temp2 = head.next;
+        head = temp2;
+        int i = 0;
+        while(temp1 != null && temp2 != null) {
+            if(i == 6)
+                return;
+            System.out.println("Before swapping:: prevTemp: " + (prevTemp != null ? prevTemp.value : "null")
+                + " temp1: " + (temp1 != null ? temp1.value : "null")
+                + " temp2: " + (temp2 != null ? temp2.value : "null")
+                + " nextTemp: " + (nextTemp != null ? nextTemp.value : "null")
+                + " || head: " + head.value);
+            temp1.next = nextTemp;
+            temp1.prev = temp2;
+            temp2.next = temp1;
+            temp2.prev = prevTemp;
+            if(prevTemp != null)
+                prevTemp.next = temp2;
+            if(nextTemp != null)
+                nextTemp.prev = temp1;
+            // moving the pointers two blocks ahead
+            if(nextTemp != null && nextTemp.next != null) {
+                prevTemp = temp1;
+                temp1 = prevTemp.next;
+                temp2 = temp1.next;
+                nextTemp = temp2.next;
+            } else {
+                System.out.println("After swapping:: prevTemp: " + (prevTemp != null ? prevTemp.value : "null")
+                        + " temp1: " + (temp1 != null ? temp1.value : "null")
+                        + " temp2: " + (temp2 != null ? temp2.value : "null")
+                        + " nextTemp: " + (nextTemp != null ? nextTemp.value : "null"));
+                break;
+            }
+            System.out.println("After swapping:: prevTemp: " + (prevTemp != null ? prevTemp.value : "null")
+                    + " temp1: " + (temp1 != null ? temp1.value : "null")
+                    + " temp2: " + (temp2 != null ? temp2.value : "null")
+                    + " nextTemp: " + (nextTemp != null ? nextTemp.value : "null"));
+        }
+    }
+
 }

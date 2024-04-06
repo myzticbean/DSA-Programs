@@ -1,5 +1,6 @@
 package io.myzticbean;
 
+import io.myzticbean.dsaprograms.list.DoublyLinkedList;
 import io.myzticbean.dsaprograms.list.LinkedList;
 
 import java.util.Random;
@@ -17,11 +18,43 @@ public class Main {
 
         testLoopyLL();
 
+        testNormalDLL();
 
     }
 
     private static int getRandomNumber() {
         return random.nextInt(1000);
+    }
+
+    private static void testNormalDLL() {
+        DoublyLinkedList myDLL = new DoublyLinkedList(1);
+        myDLL.append(2);
+        myDLL.append(3);
+        myDLL.append(4);
+        myDLL.append(5);
+        // 1 2 3 4 5
+        // 2 1 3 4 5
+        // 2 1 4 3 5
+        System.out.println("DLL:");
+        myDLL.printList();
+
+        System.out.println("\nmyDLL isPalindrome:");
+        System.out.println( myDLL.isPalindrome() );
+
+        myDLL.swapFirstLast();
+
+        System.out.println("\nDLL after swap:");
+        myDLL.printList();
+
+        myDLL.reverse();
+
+        System.out.println("\nDLL after reverse:");
+        myDLL.printList();
+
+        myDLL.swapPairs();
+
+        System.out.println("\nmyDll after swapPairs:");
+        myDLL.printList();
     }
 
     private static void testNormalLLImpl() {
